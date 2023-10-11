@@ -15,33 +15,51 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   String quotes = "😁Generate Random quotes😁";
   String author = "";
-  // int length =int.parse("");
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.deepPurple.shade100,
         appBar: AppBar(
+          actions: const [
+            Padding(
+              padding: EdgeInsets.only(right: 20),
+              child: Icon(Icons.monitor_heart),
+            )
+          ],
           title: Text(
             "Random Quotes",
-            style: GoogleFonts.poppins(textStyle: TextStyle(fontSize: 20)),
+            style:
+                GoogleFonts.poppins(textStyle: const TextStyle(fontSize: 15)),
           ),
         ),
         body: Column(
           children: [
+            const SizedBox(
+              height: 20,
+            ),
             Padding(
               padding: const EdgeInsets.all(10),
               child: Container(
                 // height: 150,
-                height: MediaQuery.of(context).size.height / 3,
+                height: MediaQuery.of(context).size.height * 0.5,
+                width: double.infinity,
                 // decoration: BoxDecoration(border: Border.all(width: 8)),
                 decoration: BoxDecoration(
                   color: Colors.deepPurple.shade200,
                   borderRadius: BorderRadius.circular(10),
                 ),
-
                 child: Column(
                   children: [
+                    Align(
+                      alignment: Alignment.topLeft,
+                      child: IconButton(
+                        onPressed: () {
+                          debugPrint("clicked favorite");
+                        },
+                        icon: const Icon(Icons.favorite_border_rounded),
+                      ),
+                    ),
                     Padding(
                       padding: const EdgeInsets.only(
                           top: 25, left: 10, right: 10, bottom: 10),
@@ -79,6 +97,7 @@ class _HomeScreenState extends State<HomeScreen> {
               padding: const EdgeInsets.only(top: 100),
               child: Center(
                 child: CupertinoButton.filled(
+                  pressedOpacity: 0.8,
                   // disabledColor: CupertinoColors.quaternarySystemFill,
                   onPressed: () async {
                     var url = Uri.parse('https://api.quotable.io/random');
@@ -104,8 +123,12 @@ class _HomeScreenState extends State<HomeScreen> {
                         padding: const EdgeInsets.symmetric(vertical: 100),
                         child: Text(
                           quotes,
-                          style: const TextStyle(
-                              fontSize: 16, fontWeight: FontWeight.w500),
+                          style: GoogleFonts.poppins(
+                            textStyle: const TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
                         ),
                       );
                     });
