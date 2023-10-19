@@ -15,6 +15,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   String quotes = "😁Generate Random quotes😁";
   String author = "";
+  bool _isLoading = true;
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -24,7 +25,7 @@ class _HomeScreenState extends State<HomeScreen> {
           actions: const [
             Padding(
               padding: EdgeInsets.only(right: 20),
-              child: Icon(Icons.monitor_heart),
+              child: Icon(Icons.menu),
             )
           ],
           title: Text(
@@ -40,56 +41,46 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             Padding(
               padding: const EdgeInsets.all(10),
-              child: Container(
-                // height: 150,
-                height: MediaQuery.of(context).size.height * 0.5,
-                width: double.infinity,
-                // decoration: BoxDecoration(border: Border.all(width: 8)),
-                decoration: BoxDecoration(
-                  color: Colors.deepPurple.shade200,
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: Column(
-                  children: [
-                    Align(
-                      alignment: Alignment.topLeft,
-                      child: IconButton(
-                        onPressed: () {
-                          debugPrint("clicked favorite");
-                        },
-                        icon: const Icon(Icons.favorite_border_rounded),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(
-                          top: 25, left: 10, right: 10, bottom: 10),
-                      child: Text(
-                        quotes,
-                        textAlign: TextAlign.start,
-                        style: GoogleFonts.poppins(
-                          textStyle: const TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w500,
-                            letterSpacing: .4,
-                          ),
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 20, right: 30),
-                      child: Align(
-                        alignment: Alignment.bottomRight,
+              child: IntrinsicHeight(
+                child: Container(
+                  // decoration: BoxDecoration(border: Border.all(width: 8)),
+                  decoration: BoxDecoration(
+                    color: Colors.deepPurple.shade200,
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(
+                            top: 25, left: 10, right: 10, bottom: 10),
                         child: Text(
-                          "-$author",
+                          quotes,
+                          textAlign: TextAlign.start,
                           style: GoogleFonts.poppins(
                             textStyle: const TextStyle(
-                              fontWeight: FontWeight.w400,
+                              fontSize: 16,
+                              fontWeight: FontWeight.w500,
+                              letterSpacing: .4,
                             ),
                           ),
                         ),
                       ),
-                    ),
-                  ],
+                      Padding(
+                        padding: const EdgeInsets.only(top: 20, right: 30),
+                        child: Align(
+                          alignment: Alignment.bottomRight,
+                          child: Text(
+                            "-$author",
+                            style: GoogleFonts.poppins(
+                              textStyle: const TextStyle(
+                                fontWeight: FontWeight.w400,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
@@ -107,6 +98,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     var data = jsonDecode(response.body);
                     quotes = data["content"];
                     author = data["author"];
+                    _isLoading = false;
 
                     // ignore: use_build_context_synchronously
                     // Navigator.of(context).push(

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:learngin/screens/home_screen.dart';
 
-import 'controller/deoendency_injections.dart';
+// import 'controller/deoendency_injections.dart';
 
 void main() {
   runApp(const MyApp());
-  DependencyInjection.init();
+  // DependencyInjection.init();
 }
 
 class MyApp extends StatelessWidget {
