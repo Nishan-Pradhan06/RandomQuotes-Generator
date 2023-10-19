@@ -1,5 +1,8 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+// import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:google_fonts/google_fonts.dart';
@@ -15,7 +18,28 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   String quotes = "😁Generate Random quotes😁";
   String author = "";
-  bool _isLoading = true;
+
+  Future getQuotes() async {
+    showDialog(
+        context: context,
+        builder: (context) {
+          return const Center(
+            child: CircularProgressIndicator(
+              valueColor:
+                  AlwaysStoppedAnimation<Color>(Colors.deepPurpleAccent),
+            ),
+          );
+        });
+    var url = Uri.parse('https://api.quotable.io/random');
+    var response = await http.get(url);
+    debugPrint('Response status: ${response.statusCode}');
+    debugPrint('Response body: ${response.body}');
+    var data = jsonDecode(response.body);
+    quotes = data["content"];
+    author = data["author"];
+    Navigator.of(context).pop();
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -84,52 +108,40 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.only(top: 100),
-              child: Center(
-                child: CupertinoButton.filled(
-                  pressedOpacity: 0.8,
-                  // disabledColor: CupertinoColors.quaternarySystemFill,
-                  onPressed: () async {
-                    var url = Uri.parse('https://api.quotable.io/random');
-                    var response = await http.get(url);
-                    debugPrint('Response status: ${response.statusCode}');
-                    debugPrint('Response body: ${response.body}');
-                    var data = jsonDecode(response.body);
-                    quotes = data["content"];
-                    author = data["author"];
-                    _isLoading = false;
-
-                    // ignore: use_build_context_synchronously
-                    // Navigator.of(context).push(
-                    //   MaterialPageRoute(
-                    //     builder: (context) => SecondScreen(
-                    //       authorName: author,
-                    //       quoteText: quotes,
-                    //     ),
-                    //   ),
-                    // );
-
-                    setState(() {
-                      Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 100),
-                        child: Text(
-                          quotes,
-                          style: GoogleFonts.poppins(
-                            textStyle: const TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                        ),
-                      );
-                    });
-                  },
-                  child: const Text("Generate"),
-                ),
-              ),
-            ),
+            newMethod(),
           ],
+        ),
+      ),
+    );
+  }
+
+  Padding newMethod() {
+    return Padding(
+      padding: const EdgeInsets.only(top: 100),
+      child: Center(
+        child: CupertinoButton.filled(
+          pressedOpacity: 0.8,
+
+          // disabledColor: CupertinoColors.quaternarySystemFill,
+          onPressed: () {
+            // _isLoading = false;
+            getQuotes();
+            setState(() {
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 100),
+                child: Text(
+                  quotes,
+                  style: GoogleFonts.poppins(
+                    textStyle: const TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ),
+              );
+            });
+          },
+          child: const Text("Generate"),
         ),
       ),
     );

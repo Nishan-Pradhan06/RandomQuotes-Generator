@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.learngin">
    <application
-        android:label="learngin"
+        android:label="Quotes"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
