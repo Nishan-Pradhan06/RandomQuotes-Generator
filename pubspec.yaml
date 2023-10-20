@@ -20,6 +20,7 @@ dependencies:
   get: ^4.6.5
   connectivity_plus: ^5.0.0
   internet_connection_checker: ^1.0.0+1
+  flutter_launcher_icons: ^0.13.1
 
 dev_dependencies:
   flutter_test:
