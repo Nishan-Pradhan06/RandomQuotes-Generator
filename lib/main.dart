@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:learngin/screens/home_screen.dart';
+// import 'package:learngin/screens/home_screen.dart';
+import 'package:learngin/screens/splashscreen.dart';
 
 // import 'controller/deoendency_injections.dart';
 
@@ -16,11 +17,11 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Quotes App : Learning Api Json',
+      title: 'Quotes',
       theme: ThemeData(
         primarySwatch: Colors.deepPurple,
       ),
-      home: const HomeScreen(),
+      home: const SplashScreen(),
     );
   }
 }
