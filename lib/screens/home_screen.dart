@@ -2,6 +2,7 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get_connect/http/src/utils/utils.dart';
 // import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -46,18 +47,17 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Colors.deepPurple.shade100,
+        backgroundColor: const Color.fromRGBO(209, 196, 233, 1),
         appBar: AppBar(
-// actions: const [
-//             Padding(
-//               padding: EdgeInsets.only(right: 20),
-//               child: Icon(Icons.menu),
-//             )
-//           ],
+          centerTitle: true,
+          backgroundColor: Colors.deepPurple.shade400,
+          foregroundColor: Colors.black,
           title: Text(
             "Random Quotes",
-            style:
-                GoogleFonts.poppins(textStyle: const TextStyle(fontSize: 18)),
+            style: GoogleFonts.poppins(
+              textStyle:
+                  const TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+            ),
           ),
         ),
         body: SingleChildScrollView(
@@ -67,7 +67,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 height: 20,
               ),
               Padding(
-                padding: const EdgeInsets.all(10),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
                 child: IntrinsicHeight(
                   child: Container(
                     // decoration: BoxDecoration(border: Border.all(width: 8)),
@@ -79,7 +80,11 @@ class _HomeScreenState extends State<HomeScreen> {
                       children: [
                         Padding(
                           padding: const EdgeInsets.only(
-                              top: 25, left: 10, right: 10, bottom: 10),
+                            top: 35,
+                            left: 10,
+                            right: 10,
+                            bottom: 10,
+                          ),
                           child: Text(
                             quotes,
                             textAlign: TextAlign.start,
@@ -100,7 +105,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               "-$author",
                               style: GoogleFonts.poppins(
                                 textStyle: const TextStyle(
-                                  fontWeight: FontWeight.w400,
+                                  fontWeight: FontWeight.w600,
                                 ),
                               ),
                             ),
