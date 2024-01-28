@@ -15,6 +15,7 @@ class _HomeScreenState extends State<HomeScreen> {
   String? _quotes;
   String? _author;
   bool _isLoading = false;
+  bool _isFavourite = false;
 
   @override
   void initState() {
