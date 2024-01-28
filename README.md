@@ -4,7 +4,8 @@ Create dynamic Flutter app with API integration! Learn how to fetch JSON data fr
 ##project ScreenShots
 
 A new Flutter project.
-![password](https://github.com/Nishan-Pradhan06/RandomQuotes-Generator/assets/105001135/ab3362c2-7987-4747-9c17-81b89d4639c2)
+![quotes](https://github.com/Nishan-Pradhan06/RandomQuotes-Generator/assets/105001135/173abbb4-cbda-4055-b06d-7aa66f13206d)
+
 
 ## Getting Started
 
