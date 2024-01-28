@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:learngin/screens/favourite.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -15,7 +16,7 @@ class _HomeScreenState extends State<HomeScreen> {
   String? _quotes;
   String? _author;
   bool _isLoading = false;
-  bool _isFavourite = false;
+  bool _isFavorite = false;
 
   @override
   void initState() {
@@ -45,20 +46,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return SafeArea(
       child: Scaffold(
         backgroundColor: const Color.fromRGBO(209, 196, 233, 1),
-        appBar: AppBar(
-          centerTitle: true,
-          backgroundColor: Colors.deepPurple.shade400,
-          foregroundColor: Colors.black,
-          title: Text(
-            "Random Quotes",
-            style: GoogleFonts.poppins(
-              textStyle: const TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
-          ),
-        ),
+        appBar: appBar(),
         body: SingleChildScrollView(
           child: Column(
             children: [
@@ -79,6 +67,38 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ),
       ),
+    );
+  }
+
+  AppBar appBar() {
+    return AppBar(
+      centerTitle: true,
+      backgroundColor: Colors.deepPurple.shade400,
+      foregroundColor: Colors.black,
+      title: Text(
+        "Random Quotes",
+        style: GoogleFonts.poppins(
+          textStyle: const TextStyle(
+            fontSize: 20,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
+      ),
+      actions: [
+        IconButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const FavouriteListCard(),
+                ),
+              );
+            },
+            icon: const Icon(
+              Icons.favorite,
+              color: Colors.deepPurple,
+            ))
+      ],
     );
   }
 
@@ -105,19 +125,40 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.only(top: 20, right: 30),
-            child: Align(
-              alignment: Alignment.bottomRight,
-              child: Text(
-                "-$_author",
-                style: GoogleFonts.poppins(
-                  textStyle: const TextStyle(
-                    fontWeight: FontWeight.w600,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              IconButton(
+                onPressed: () {
+                  if (_isFavorite) {
+                    // Remove from favorites (implement your logic here)
+                  } else {
+                    // Add to favorites (implement your logic here)
+                  }
+
+                  setState(() {
+                    _isFavorite = !_isFavorite;
+                  });
+                },
+                icon: _isFavorite
+                    ? const Icon(Icons.favorite, color: Colors.deepPurple)
+                    : const Icon(Icons.favorite_border),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 20, right: 30, bottom: 5),
+                child: Align(
+                  alignment: Alignment.bottomRight,
+                  child: Text(
+                    "-$_author",
+                    style: GoogleFonts.poppins(
+                      textStyle: const TextStyle(
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
                   ),
                 ),
               ),
-            ),
+            ],
           ),
         ],
       ),
