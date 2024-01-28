@@ -1,46 +1,42 @@
-// ignore_for_file: use_build_context_synchronously
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get_connect/http/src/utils/utils.dart';
-// import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:google_fonts/google_fonts.dart';
-// import 'package:learngin/screens/second_screen.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+  const HomeScreen({Key? key}) : super(key: key);
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  String quotes = "😁Generate Random quotes😁";
-  String author = "";
+  String? _quotes;
+  String? _author;
+  bool _isLoading = false;
 
-  Future getQuotes() async {
-    showDialog(
-      context: context,
-      builder: (context) {
-        return const Center(
-          child: CircularProgressIndicator(
-            // color: Colors.blueAccent,
-            strokeWidth: 4,
-            valueColor: AlwaysStoppedAnimation<Color>(Colors.deepPurpleAccent),
-          ),
-        );
-      },
-    );
-    var url = Uri.parse('https://api.quotable.io/random');
-    var response = await http.get(url);
-    debugPrint('Response status: ${response.statusCode}');
-    debugPrint('Response body: ${response.body}');
-    var data = jsonDecode(response.body);
-    quotes = data["content"];
-    author = data["author"];
-    Navigator.of(context).pop();
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  Future<void> _getQuotes() async {
+    try {
+      var url = Uri.parse('https://api.quotable.io/random');
+      var response = await http.get(url);
+      debugPrint('Response status: ${response.statusCode}');
+      debugPrint('Response body: ${response.body}');
+      var data = jsonDecode(response.body);
+      setState(() {
+        _quotes = data["content"];
+        _author = data["author"];
+        _isLoading = false;
+      });
+    } catch (error) {
+      // Handle error, e.g., show an error message
+      debugPrint('Error fetching quotes: $error');
+    }
   }
 
   @override
@@ -55,8 +51,10 @@ class _HomeScreenState extends State<HomeScreen> {
           title: Text(
             "Random Quotes",
             style: GoogleFonts.poppins(
-              textStyle:
-                  const TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+              textStyle: const TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.w600,
+              ),
             ),
           ),
         ),
@@ -70,53 +68,12 @@ class _HomeScreenState extends State<HomeScreen> {
                 padding:
                     const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
                 child: IntrinsicHeight(
-                  child: Container(
-                    // decoration: BoxDecoration(border: Border.all(width: 8)),
-                    decoration: BoxDecoration(
-                      color: Colors.deepPurple.shade200,
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: Column(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(
-                            top: 35,
-                            left: 10,
-                            right: 10,
-                            bottom: 10,
-                          ),
-                          child: Text(
-                            quotes,
-                            textAlign: TextAlign.start,
-                            style: GoogleFonts.poppins(
-                              textStyle: const TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.w500,
-                                letterSpacing: .4,
-                              ),
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 20, right: 30),
-                          child: Align(
-                            alignment: Alignment.bottomRight,
-                            child: Text(
-                              "-$author",
-                              style: GoogleFonts.poppins(
-                                textStyle: const TextStyle(
-                                  fontWeight: FontWeight.w600,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
+                  child: _isLoading
+                      ? const Center(child: CircularProgressIndicator())
+                      : _buildQuoteContainer(),
                 ),
               ),
-              newMethod(),
+              _buildGenerateButton(),
             ],
           ),
         ),
@@ -124,31 +81,62 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Padding newMethod() {
+  Widget _buildQuoteContainer() {
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.deepPurple.shade200,
+        borderRadius: BorderRadius.circular(10),
+      ),
+      child: Column(
+        children: [
+          Padding(
+            padding:
+                const EdgeInsets.only(top: 35, left: 10, right: 10, bottom: 10),
+            child: Text(
+              _quotes ?? "😃Click 'Generate' for quotes😃",
+              textAlign: TextAlign.start,
+              style: GoogleFonts.poppins(
+                textStyle: const TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w500,
+                  letterSpacing: .4,
+                ),
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(top: 20, right: 30),
+            child: Align(
+              alignment: Alignment.bottomRight,
+              child: Text(
+                "-$_author",
+                style: GoogleFonts.poppins(
+                  textStyle: const TextStyle(
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildGenerateButton() {
     return Padding(
       padding: const EdgeInsets.only(top: 100),
       child: Center(
         child: CupertinoButton.filled(
           pressedOpacity: 0.8,
-
-          // disabledColor: CupertinoColors.quaternarySystemFill,
           onPressed: () {
-            // _isLoading = false;
-
-            getQuotes();
             setState(() {
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 100),
-                child: Text(
-                  quotes,
-                  style: GoogleFonts.poppins(
-                    textStyle: const TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                ),
-              );
+              _isLoading = true;
+            });
+            _getQuotes().then((_) {
+              setState(() {
+                _isLoading = false;
+              });
             });
           },
           child: const Text("Generate"),
