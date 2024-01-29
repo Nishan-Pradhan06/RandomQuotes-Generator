@@ -17,6 +17,7 @@ class _HomeScreenState extends State<HomeScreen> {
   String? _author;
   bool _isLoading = false;
   bool _isFavorite = false;
+  final List<Quote> _favoriteQuotes = [];
 
   @override
   void initState() {
@@ -33,7 +34,15 @@ class _HomeScreenState extends State<HomeScreen> {
       setState(() {
         _quotes = data["content"];
         _author = data["author"];
+        _isFavorite = false;
         _isLoading = false;
+        // Create a new Quote instance with isFavorite set to false
+        Quote newQuote = Quote(content: _quotes!, author: _author!);
+        // Check if the quote is already in favorites to set isFavorite
+        if (_favoriteQuotes.contains(newQuote)) {
+          newQuote.isFavorite = true;
+        }
+        _favoriteQuotes.add(newQuote);
       });
     } catch (error) {
       // Handle error, e.g., show an error message
@@ -95,8 +104,8 @@ class _HomeScreenState extends State<HomeScreen> {
               );
             },
             icon: const Icon(
-              Icons.favorite,
-              color: Colors.deepPurple,
+              Icons.favorite_border,
+              color: Colors.black,
             ))
       ],
     );
@@ -111,8 +120,7 @@ class _HomeScreenState extends State<HomeScreen> {
       child: Column(
         children: [
           Padding(
-            padding:
-                const EdgeInsets.only(top: 35, left: 10, right: 10, bottom: 10),
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
             child: Text(
               _quotes ?? "😃Click 'Generate' for quotes😃",
               textAlign: TextAlign.start,
@@ -125,41 +133,58 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              IconButton(
-                onPressed: () {
-                  if (_isFavorite) {
-                    // Remove from favorites (implement your logic here)
-                  } else {
-                    // Add to favorites (implement your logic here)
-                  }
+          if (_quotes != null) // Only show the Row if quotes are not null
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                IconButton(
+                  onPressed: () {
+                    final snackBar = SnackBar(
+                      backgroundColor: _isFavorite ? Colors.red : Colors.green,
+                      content: Text(
+                        _isFavorite
+                            ? 'Removed from Favorites'
+                            : 'Added to Favorites',
+                        style: GoogleFonts.poppins(
+                          textStyle: const TextStyle(
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ),
+                    );
 
-                  setState(() {
-                    _isFavorite = !_isFavorite;
-                  });
-                },
-                icon: _isFavorite
-                    ? const Icon(Icons.favorite, color: Colors.deepPurple)
-                    : const Icon(Icons.favorite_border),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(top: 20, right: 30, bottom: 5),
-                child: Align(
-                  alignment: Alignment.bottomRight,
-                  child: Text(
-                    "-$_author",
-                    style: GoogleFonts.poppins(
-                      textStyle: const TextStyle(
-                        fontWeight: FontWeight.w600,
+                    const Duration(microseconds: 3);
+                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                    if (_isFavorite) {
+                      // Remove from favorites (implement your logic here)
+                    } else {
+                      // Add to favorites (implement your logic here)
+                    }
+
+                    setState(() {
+                      _isFavorite = !_isFavorite;
+                    });
+                  },
+                  icon: _isFavorite
+                      ? Icon(Icons.favorite, color: Colors.red.shade800)
+                      : const Icon(Icons.favorite_border),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 20, right: 30, bottom: 5),
+                  child: Align(
+                    alignment: Alignment.bottomRight,
+                    child: Text(
+                      "-$_author",
+                      style: GoogleFonts.poppins(
+                        textStyle: const TextStyle(
+                          fontWeight: FontWeight.w600,
+                        ),
                       ),
                     ),
                   ),
                 ),
-              ),
-            ],
-          ),
+              ],
+            ),
         ],
       ),
     );
