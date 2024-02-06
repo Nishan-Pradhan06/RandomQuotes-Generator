@@ -99,45 +99,6 @@ class _FavouriteListCardState extends State<FavouriteListCard> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              IconButton(
-                onPressed: () {
-                  // Toggle isFavorite status and show snackbar
-                  setState(() {
-                    _favoriteQuotes[index].isFavorite =
-                        !_favoriteQuotes[index].isFavorite;
-
-                    if (!_favoriteQuotes[index].isFavorite) {
-                      // If the quote is removed from favorites, remove it from the list
-                      _favoriteQuotes.removeWhere((quote) => !quote.isFavorite);
-                    }
-                  });
-
-                  final snackBar = SnackBar(
-                    backgroundColor: _favoriteQuotes[index].isFavorite
-                        ? Colors.green
-                        : Colors.red,
-                    content: Text(
-                      _favoriteQuotes[index].isFavorite
-                          ? 'Added to Favorites'
-                          : 'Removed from Favorites',
-                      style: GoogleFonts.poppins(
-                        textStyle: const TextStyle(
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                    ),
-                  );
-
-                  const Duration(microseconds: 3);
-                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                },
-                icon: Icon(
-                  _favoriteQuotes[index].isFavorite
-                      ? Icons.favorite
-                      : Icons.favorite_border,
-                  color: Colors.deepPurple,
-                ),
-              ),
               Padding(
                 padding: const EdgeInsets.only(top: 20, right: 30, bottom: 5),
                 child: Align(

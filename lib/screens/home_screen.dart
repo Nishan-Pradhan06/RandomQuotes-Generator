@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:learngin/screens/favourite.dart';
+
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -16,8 +16,6 @@ class _HomeScreenState extends State<HomeScreen> {
   String? _quotes;
   String? _author;
   bool _isLoading = false;
-  bool _isFavorite = false;
-  final List<Quote> _favoriteQuotes = [];
 
   @override
   void initState() {
@@ -34,15 +32,7 @@ class _HomeScreenState extends State<HomeScreen> {
       setState(() {
         _quotes = data["content"];
         _author = data["author"];
-        _isFavorite = false;
         _isLoading = false;
-        // Create a new Quote instance with isFavorite set to false
-        Quote newQuote = Quote(content: _quotes!, author: _author!);
-        // Check if the quote is already in favorites to set isFavorite
-        if (_favoriteQuotes.contains(newQuote)) {
-          newQuote.isFavorite = true;
-        }
-        _favoriteQuotes.add(newQuote);
       });
     } catch (error) {
       // Handle error, e.g., show an error message
@@ -93,100 +83,62 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ),
       ),
-      actions: [
-        IconButton(
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const FavouriteListCard(),
-                ),
-              );
-            },
-            icon: const Icon(
-              Icons.favorite_border,
-              color: Colors.black,
-            ))
-      ],
     );
   }
 
   Widget _buildQuoteContainer() {
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.deepPurple.shade200,
-        borderRadius: BorderRadius.circular(10),
-      ),
-      child: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-            child: Text(
-              _quotes ?? "😃Click 'Generate' for quotes😃",
-              textAlign: TextAlign.start,
-              style: GoogleFonts.poppins(
-                textStyle: const TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w500,
-                  letterSpacing: .4,
-                ),
-              ),
-            ),
+    return Column(
+      children: [
+        Container(
+          decoration: BoxDecoration(
+            color: Colors.deepPurple.shade200,
+            borderRadius: BorderRadius.circular(10),
           ),
-          if (_quotes != null) // Only show the Row if quotes are not null
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                IconButton(
-                  onPressed: () {
-                    final snackBar = SnackBar(
-                      backgroundColor: _isFavorite ? Colors.red : Colors.green,
-                      content: Text(
-                        _isFavorite
-                            ? 'Removed from Favorites'
-                            : 'Added to Favorites',
-                        style: GoogleFonts.poppins(
-                          textStyle: const TextStyle(
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                      ),
-                    );
-
-                    const Duration(microseconds: 3);
-                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                    if (_isFavorite) {
-                      // Remove from favorites (implement your logic here)
-                    } else {
-                      // Add to favorites (implement your logic here)
-                    }
-
-                    setState(() {
-                      _isFavorite = !_isFavorite;
-                    });
-                  },
-                  icon: _isFavorite
-                      ? Icon(Icons.favorite, color: Colors.red.shade800)
-                      : const Icon(Icons.favorite_border),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 20, right: 30, bottom: 5),
-                  child: Align(
-                    alignment: Alignment.bottomRight,
-                    child: Text(
-                      "-$_author",
-                      style: GoogleFonts.poppins(
-                        textStyle: const TextStyle(
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
+          child: Column(
+            children: [
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                child: Text(
+                  _quotes ?? "😃Click 'Generate' for quotes😃",
+                  textAlign: TextAlign.start,
+                  style: GoogleFonts.poppins(
+                    textStyle: const TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w500,
+                      letterSpacing: .4,
                     ),
                   ),
                 ),
-              ],
-            ),
-        ],
-      ),
+              ),
+              if (_quotes != null) // Only show the Row if quotes are not null
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Padding(
+                      padding:
+                          const EdgeInsets.only(top: 20, right: 30, bottom: 5),
+                      child: Align(
+                        alignment: Alignment.bottomRight,
+                        child: Text(
+                          "-$_author",
+                          style: GoogleFonts.poppins(
+                            textStyle: const TextStyle(
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+            ],
+          ),
+        ),
+        const SizedBox(
+          height: 10,
+        ),
+      ],
     );
   }
 
