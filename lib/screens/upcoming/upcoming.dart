@@ -10,37 +10,37 @@
 //         }
 //         _favoriteQuotes.add(newQuote);
 
-        // if (_quotes != null)
-        //   Container(
-        //     decoration: BoxDecoration(
-        //       color: Colors.deepPurple.shade200,
-        //       borderRadius: BorderRadius.circular(10),
-        //     ),
-        //     child: SizedBox(
-        //         child: Row(
-        //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        //       children: [
-        //         favIcon(),
-        //       ],
-        //     )),
-        //   )
-      //         actions: [
-      //   IconButton(
-      //       onPressed: () {
-      //         Navigator.push(
-      //           context,
-      //           MaterialPageRoute(
-      //             builder: (context) => const FavouriteListCard(),
-      //           ),
-      //         );
-      //       },
-      //       icon: const Icon(
-      //         Icons.favorite_border,
-      //         color: Colors.black,
-      //       ))
-      // ],
+//         if (_quotes != null)
+//           Container(
+//             decoration: BoxDecoration(
+//               color: Colors.deepPurple.shade200,
+//               borderRadius: BorderRadius.circular(10),
+//             ),
+//             child: SizedBox(
+//                 child: Row(
+//               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//               children: [
+//                 favIcon(),
+//               ],
+//             )),
+//           )
+//               actions: [
+//         IconButton(
+//             onPressed: () {
+//               Navigator.push(
+//                 context,
+//                 MaterialPageRoute(
+//                   builder: (context) => const FavouriteListCard(),
+//                 ),
+//               );
+//             },
+//             icon: const Icon(
+//               Icons.favorite_border,
+//               color: Colors.black,
+//             ))
+//       ],
 
-//favourite
+// favourite
 
 //  final snackBar = SnackBar(
 //           backgroundColor: _isFavorite ? Colors.red : Colors.green,
@@ -62,51 +62,51 @@
 //           // Add to favorites (implement your logic here)
 //         }
 
-  //sharelogic
-  // IconButton shareLogic() {
-  //   return IconButton(
-  //     onPressed: () {
-  //       final snackBar = SnackBar(
-  //         backgroundColor: Colors.green,
-  //         content: Text(
-  //           'Share Successfully',
-  //           style: GoogleFonts.poppins(
-  //             textStyle: const TextStyle(
-  //               fontWeight: FontWeight.w600,
-  //             ),
-  //           ),
-  //         ),
-  //       );
+//   sharelogic
+//   IconButton shareLogic() {
+//     return IconButton(
+//       onPressed: () {
+//         final snackBar = SnackBar(
+//           backgroundColor: Colors.green,
+//           content: Text(
+//             'Share Successfully',
+//             style: GoogleFonts.poppins(
+//               textStyle: const TextStyle(
+//                 fontWeight: FontWeight.w600,
+//               ),
+//             ),
+//           ),
+//         );
 
-  //       const Duration(microseconds: 3);
-  //       ScaffoldMessenger.of(context).showSnackBar(snackBar);
-  //     },
-  //     icon: const Icon(Icons.share_sharp),
-  //   );
-  // }
+//         const Duration(microseconds: 3);
+//         ScaffoldMessenger.of(context).showSnackBar(snackBar);
+//       },
+//       icon: const Icon(Icons.share_sharp),
+//     );
+//   }
 
-//download logic
-  // IconButton downLoadLogic() {
-  //   return IconButton(
-  //     onPressed: () {
-  //       final snackBar = SnackBar(
-  //         backgroundColor: Colors.green,
-  //         content: Text(
-  //           'Downloaded Successfully',
-  //           style: GoogleFonts.poppins(
-  //             textStyle: const TextStyle(
-  //               fontWeight: FontWeight.w600,
-  //             ),
-  //           ),
-  //         ),
-  //       );
+// download logic
+//   IconButton downLoadLogic() {
+//     return IconButton(
+//       onPressed: () {
+//         final snackBar = SnackBar(
+//           backgroundColor: Colors.green,
+//           content: Text(
+//             'Downloaded Successfully',
+//             style: GoogleFonts.poppins(
+//               textStyle: const TextStyle(
+//                 fontWeight: FontWeight.w600,
+//               ),
+//             ),
+//           ),
+//         );
 
-  //       const Duration(microseconds: 3);
-  //       ScaffoldMessenger.of(context).showSnackBar(snackBar);
-  //     },
-  //     icon: const Icon(Icons.download),
-  //   );
-  // }
+//         const Duration(microseconds: 3);
+//         ScaffoldMessenger.of(context).showSnackBar(snackBar);
+//       },
+//       icon: const Icon(Icons.download),
+//     );
+//   }
   
 // //favorite icon logics
 // IconButton favIcon() {

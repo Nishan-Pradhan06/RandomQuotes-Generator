@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:learngin/core/theme/colors.dart';
+import 'package:learngin/view/components/button_component.dart';
 import 'package:learngin/view/pages/favourite.dart';
-
 import '../../model/custom_app_bar.dart';
 import '../components/appbar.dart';
+import '../components/quotes_card_components.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -26,6 +27,14 @@ class HomePage extends StatelessWidget {
             );
           },
         ),
+      ),
+      body: const Column(
+        children: [
+          QuotesCardComponents(),
+          Expanded(
+            child: ButtonComponent(),
+          ),
+        ],
       ),
     );
   }
