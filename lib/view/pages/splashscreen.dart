@@ -1,7 +1,7 @@
 // import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
-import 'home_screen.dart';
+import 'package:learngin/view/pages/home_page.dart';
+import '../../screens/home_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -20,7 +20,7 @@ class _SplashScreenState extends State<SplashScreen> {
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(
-            builder: (context) => const HomeScreen(),
+            builder: (context) => HomePage(),
           ),
         );
       },
@@ -29,9 +29,10 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // Size size = MediaQuery.sizeOf(context);
+    Size size = MediaQuery.sizeOf(context);
     return Container(
-      // width: size.width,
+      height: size.height,
+      width: size.width,
       color: Colors.white,
       child: Center(
         child: Image.asset(

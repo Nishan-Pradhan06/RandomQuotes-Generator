@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:google_fonts/google_fonts.dart';
-
+import 'package:learngin/view/components/appbar.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -42,28 +42,25 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        backgroundColor: const Color.fromRGBO(209, 196, 233, 1),
-        appBar: appBar(),
-        body: SingleChildScrollView(
-          child: Column(
-            children: [
-              const SizedBox(
-                height: 20,
+    return Scaffold(
+      backgroundColor: const Color.fromRGBO(209, 196, 233, 1),
+      // appBar: const CustomAppBar(),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            const SizedBox(
+              height: 20,
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
+              child: IntrinsicHeight(
+                child: _isLoading
+                    ? const Center(child: CircularProgressIndicator())
+                    : _buildQuoteContainer(),
               ),
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
-                child: IntrinsicHeight(
-                  child: _isLoading
-                      ? const Center(child: CircularProgressIndicator())
-                      : _buildQuoteContainer(),
-                ),
-              ),
-              _buildGenerateButton(),
-            ],
-          ),
+            ),
+            _buildGenerateButton(),
+          ],
         ),
       ),
     );
