@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:learngin/core/theme/colors.dart';
 import 'package:learngin/view/components/button_component.dart';
-import 'package:learngin/view/pages/favourite.dart';
+import 'package:learngin/view/pages/favourites_page.dart';
 import '../../model/custom_app_bar.dart';
 import '../components/appbar.dart';
 import '../components/quotes_card_components.dart';
@@ -12,8 +11,7 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      primary: true,
-      backgroundColor: BrandColors.kBackground,
+      // drawer: CustomDrawer(),
       appBar: CustomAppBar(
         model: CustomAppBarModel(
           title: 'Random Quotes',
@@ -22,7 +20,7 @@ class HomePage extends StatelessWidget {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => const FavouriteListCard(),
+                builder: (context) => const FavouritesListCard(),
               ),
             );
           },
