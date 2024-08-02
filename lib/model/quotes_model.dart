@@ -1,31 +1,38 @@
+import 'dart:convert';
 
+QuotesModel quotesModelFromJson(String str) =>
+    QuotesModel.fromJson(json.decode(str));
+
+String quotesModelToJson(QuotesModel data) => json.encode(data.toJson());
 
 class QuotesModel {
-  String? sId;
-  String? content;
-  String? author;
-  List<String>? tags;
+  final String id;
+  final String content;
+  final String author;
+  final List<String> tags;
 
-  QuotesModel(
-      {this.sId,
-      this.content,
-      this.author,
-      this.tags,
-});
+  QuotesModel({
+    required this.id,
+    required this.content,
+    required this.author,
+    required this.tags,
+  });
 
-  QuotesModel.fromJson(Map<String, dynamic> json) {
-    sId = json['_id'];
-    content = json['content'];
-    author = json['author'];
-    tags = json['tags'].cast<String>();
-  }
+  factory QuotesModel.fromJson(Map<String, dynamic> json) => QuotesModel(
+        id: json["_id"],
+        content: json["content"],
+        author: json["author"],
+        tags: List<String>.from(
+          json["tags"].map((x) => x),
+        ),
+      );
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['_id'] = sId;
-    data['content'] = content;
-    data['author'] = author;
-    data['tags'] = tags;
-    return data;
-  }
+  Map<String, dynamic> toJson() => {
+        "_id": id,
+        "content": content,
+        "author": author,
+        "tags": List<dynamic>.from(
+          tags.map((x) => x),
+        ),
+      };
 }

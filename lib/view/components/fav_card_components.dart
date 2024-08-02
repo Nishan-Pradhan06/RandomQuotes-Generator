@@ -23,7 +23,7 @@ class FavListCardComponents extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Quotes',
+                      'Life is what happens when you’re busy making other plans.',
                       style: GoogleFonts.poppins(
                         textStyle: const TextStyle(
                           fontSize: 16,
@@ -36,7 +36,7 @@ class FavListCardComponents extends StatelessWidget {
                     Align(
                       alignment: Alignment.centerLeft,
                       child: Text(
-                        "- Nishan Pradhan",
+                        "- John Lennon",
                         style: GoogleFonts.poppins(
                           textStyle: const TextStyle(
                             fontWeight: FontWeight.w600,
@@ -50,7 +50,7 @@ class FavListCardComponents extends StatelessWidget {
                       children: [
                         Chip(
                           label: Text(
-                            'Comedy',
+                            'life',
                             style: TextStyle(
                               fontSize: 12,
                               fontWeight: FontWeight.w500,
@@ -59,7 +59,8 @@ class FavListCardComponents extends StatelessWidget {
                             ),
                           ),
                           backgroundColor: BrandColors.primary,
-                          materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                          materialTapTargetSize:
+                              MaterialTapTargetSize.shrinkWrap,
                           padding:
                               EdgeInsets.symmetric(vertical: 1, horizontal: 6),
                           labelPadding: EdgeInsets.symmetric(horizontal: 1),
@@ -77,8 +78,7 @@ class FavListCardComponents extends StatelessWidget {
                     Icons.favorite,
                     color: Colors.red.shade600,
                   ),
-                  onPressed: () {
-                  },
+                  onPressed: () {},
                 ),
               ),
             ],
