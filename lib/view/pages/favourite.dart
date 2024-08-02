@@ -1,49 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:learngin/view/components/appbar.dart';
-
+import 'package:learngin/providers/favourites_providers.dart';
+import 'package:provider/provider.dart';
 import '../../model/custom_app_bar.dart';
+import '../../model/quotes_model.dart';
+import '../components/appbar.dart';
 
-class FavouriteListCard extends StatefulWidget {
+class FavouriteListCard extends StatelessWidget {
   const FavouriteListCard({Key? key}) : super(key: key);
-
-  @override
-  State<FavouriteListCard> createState() => _FavouriteListCardState();
-}
-
-class _FavouriteListCardState extends State<FavouriteListCard> {
-  List<QuotesModel> _favoriteQuotes = [];
-  bool _isLoading = true;
-
-  @override
-  void initState() {
-    loadData();
-    super.initState();
-  }
-
-  void loadData() {
-    // Simulate loading data
-    Future.delayed(const Duration(seconds: 2), () {
-      setState(() {
-        _isLoading = false;
-        // Initialize your favorite quotes here, or fetch them from a database
-        _favoriteQuotes = [
-          QuotesModel(
-            sId: "1",
-            content: "Favorite quote 1",
-            author: "Author 1",
-            tags: ["inspiration"],
-          ),
-          QuotesModel(
-            sId: "2",
-            content: "Favorite quote 2",
-            author: "Author 2",
-            tags: ["motivation"],
-          ),
-        ];
-      });
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -54,43 +18,49 @@ class _FavouriteListCardState extends State<FavouriteListCard> {
           title: 'Favourites',
         ),
       ),
-      body: _isLoading
-          ? const Center(child: CircularProgressIndicator())
-          : _favoriteQuotes.isNotEmpty
-              ? ListView.builder(
-                  itemCount: _favoriteQuotes.length,
-                  itemBuilder: (context, index) {
-                    return Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 8, vertical: 5),
-                      child: IntrinsicHeight(
-                        child: _buildQuoteContainer(
-                          _favoriteQuotes[index].content ?? '',
-                          _favoriteQuotes[index].author ?? '',
-                          _favoriteQuotes[index].tags ?? [],
-                          index,
+      body: Consumer<FavouritesProviders>(
+        builder: (context, favProvider, child) {
+          return favProvider.isLoading
+              ? const Center(child: CircularProgressIndicator())
+              : favProvider.favQuotes.isNotEmpty
+                  ? ListView.builder(
+                      itemCount: favProvider.favQuotes.length,
+                      itemBuilder: (context, index) {
+                        final quote = favProvider.favQuotes[index];
+                        return Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 8, vertical: 5),
+                          child: IntrinsicHeight(
+                            child: _buildQuoteContainer(
+                              quote.content,
+                              quote.author,
+                              quote.tags,
+                              context,
+                              quote,
+                            ),
+                          ),
+                        );
+                      },
+                    )
+                  : Center(
+                      child: Text(
+                        'No favourites',
+                        style: GoogleFonts.poppins(
+                          textStyle: const TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500,
+                            letterSpacing: .4,
+                          ),
                         ),
                       ),
                     );
-                  },
-                )
-              : Center(
-                  child: Text(
-                    'No favourites',
-                    style: GoogleFonts.poppins(
-                      textStyle: const TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w500,
-                        letterSpacing: .4,
-                      ),
-                    ),
-                  ),
-                ),
+        },
+      ),
     );
   }
 
-  Widget _buildQuoteContainer(
-      String quote, String author, List<String> tags, int index) {
+  Widget _buildQuoteContainer(String quote, String author, List<String> tags,
+      BuildContext context, QuotesModel quotes) {
     return Container(
       decoration: BoxDecoration(
         color: Colors.deepPurple.shade200,
@@ -162,37 +132,13 @@ class _FavouriteListCardState extends State<FavouriteListCard> {
                 color: Colors.red.shade600,
               ),
               onPressed: () {
-                // Handle favorite toggle
+                Provider.of<FavouritesProviders>(context, listen: false)
+                    .removeFromFav(quotes);
               },
             ),
           ),
         ],
       ),
     );
-  }
-}
-
-class QuotesModel {
-  String? sId;
-  String? content;
-  String? author;
-  List<String>? tags;
-
-  QuotesModel({this.sId, this.content, this.author, this.tags});
-
-  QuotesModel.fromJson(Map<String, dynamic> json) {
-    sId = json['_id'];
-    content = json['content'];
-    author = json['author'];
-    tags = json['tags'].cast<String>();
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['_id'] = sId;
-    data['content'] = content;
-    data['author'] = author;
-    data['tags'] = tags;
-    return data;
   }
 }

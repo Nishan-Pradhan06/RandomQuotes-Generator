@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:learngin/view/components/button_component.dart';
 import 'package:learngin/view/components/custom_drawer_component.dart';
 import 'package:learngin/view/pages/favourites_page.dart';
+import 'package:learngin/view/pages/upcoming.dart';
 import '../../model/custom_app_bar.dart';
 import '../components/appbar.dart';
 import '../components/quotes_card_components.dart';
@@ -30,17 +31,13 @@ class HomePage extends StatelessWidget {
       body: const Column(
         children: [
           QuotesCardComponents(),
+          ActionButtons(),
           Spacer(),
           Expanded(
-            child: Positioned(
-              bottom: 20,
-              left: 0,
-              right: 0,
-              child: Center(
-                child: Padding(
-                  padding: EdgeInsets.all(16.0),
-                  child: ButtonComponent(),
-                ),
+            child: Center(
+              child: Padding(
+                padding: EdgeInsets.all(16.0),
+                child: ButtonComponent(),
               ),
             ),
           ),

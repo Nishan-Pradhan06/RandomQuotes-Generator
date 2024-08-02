@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:learngin/providers/favourites_providers.dart';
 import 'package:learngin/providers/quotes_providers.dart';
 import 'package:learngin/providers/splashscreen_provider.dart';
 import 'package:learngin/view/pages/splashscreen.dart';
@@ -22,6 +23,7 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(create: (_) => SplashscreenProvider()),
         ChangeNotifierProvider(create: (_) => QuotesProviders()),
+        ChangeNotifierProvider(create: (_) => FavouritesProviders()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
