@@ -69,37 +69,40 @@ class QuotesCardComponents extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Wrap(
-                      spacing: 1,
-                      children: quotesProvider.quotes.tags.map((tag) {
-                        return Padding(
-                          padding: const EdgeInsets.only(left: 18.0),
-                          child: Chip(
-                            label: Text(
-                              tag,
-                              style: const TextStyle(
-                                fontSize: 12,
-                                fontWeight: FontWeight.w500,
-                                color: Colors.white,
-                                overflow: TextOverflow.ellipsis,
+                    Flexible(
+                      child: Wrap(
+                        spacing: 1,
+                        children: quotesProvider.quotes.tags.map((tag) {
+                          return Padding(
+                            padding: const EdgeInsets.only(left: 18.0),
+                            child: Chip(
+                              label: Text(
+                                tag,
+                                style: const TextStyle(
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w500,
+                                  color: Colors.white,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              ),
+                              backgroundColor: BrandColors.primary,
+                              materialTapTargetSize:
+                                  MaterialTapTargetSize.shrinkWrap,
+                              padding: const EdgeInsets.symmetric(
+                                vertical: 1,
+                                horizontal: 6,
+                              ),
+                              labelPadding: const EdgeInsets.symmetric(
+                                horizontal: 1,
                               ),
                             ),
-                            backgroundColor: BrandColors.primary,
-                            materialTapTargetSize:
-                                MaterialTapTargetSize.shrinkWrap,
-                            padding: const EdgeInsets.symmetric(
-                              vertical: 1,
-                              horizontal: 6,
-                            ),
-                            labelPadding: const EdgeInsets.symmetric(
-                              horizontal: 1,
-                            ),
-                          ),
-                        );
-                      }).toList(),
+                          );
+                        }).toList(),
+                      ),
                     ),
                     Consumer<FavouritesProviders>(
                       builder: (context, favProvider, child) {
+                        final isFavourite = favProvider.isFav(quote);
                         return Container(
                           margin: const EdgeInsets.only(right: 12),
                           width: 40,
@@ -110,16 +113,15 @@ class QuotesCardComponents extends StatelessWidget {
                           ),
                           child: IconButton(
                             onPressed: () {
-                              // if (favProvider.isFav) {
-                              //   favProvider.addToFav(quote);
-                              // } else {
-                              //   favProvider.removeFromFav(quote);
-                              // }
-                              favProvider.addToFav(quote);
+                              if (isFavourite) {
+                                favProvider.removeFromFav(quote);
+                              } else {
+                                favProvider.addToFav(quote);
+                              }
                             },
                             icon: Icon(
                               Icons.favorite,
-                              color: favProvider.isFav
+                              color: isFavourite
                                   ? Colors.red.shade800
                                   : Colors.white,
                             ),

@@ -1,17 +1,44 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:learngin/view/components/no_fav.dart';
+import 'package:learngin/view/components/skelentonizer.dart';
 import 'package:provider/provider.dart';
 import '../../core/theme/colors.dart';
 import '../../providers/favourites_providers.dart';
 
-class FavListCardComponents extends StatelessWidget {
+class FavListCardComponents extends StatefulWidget {
   const FavListCardComponents({super.key});
+
+  @override
+  _FavListCardComponentsState createState() => _FavListCardComponentsState();
+}
+
+class _FavListCardComponentsState extends State<FavListCardComponents> {
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _fetchFavourites();
+    });
+  }
+
+  Future<void> _fetchFavourites() async {
+    final favProvider =
+        Provider.of<FavouritesProviders>(context, listen: false);
+    await favProvider.fetchFavourites();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Consumer<FavouritesProviders>(
       builder: (context, favProvider, child) {
+        if (favProvider.isLoading) {
+          return ListView.builder(
+            itemCount: 3,
+            itemBuilder: (context, index) => const SkelentonizerLoading(),
+          );
+        }
+
         return favProvider.favQuotes.isEmpty
             ? const NoFav()
             : ListView.builder(
