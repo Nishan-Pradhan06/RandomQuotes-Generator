@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:learngin/view/components/button_component.dart';
-import 'package:learngin/view/components/custom_drawer_component.dart';
+import 'package:learngin/view/pages/custom_drawer_component.dart';
 import 'package:learngin/view/pages/favourites_page.dart';
 import 'package:provider/provider.dart';
 import '../../model/custom_app_bar.dart';
