@@ -45,7 +45,7 @@ class FavListCardComponents extends StatelessWidget {
                                   ),
                                   const SizedBox(height: 10),
                                   Align(
-                                    alignment: Alignment.centerLeft,
+                                    alignment: Alignment.centerRight,
                                     child: Text(
                                       "- ${quote.author}",
                                       style: GoogleFonts.poppins(
@@ -57,6 +57,8 @@ class FavListCardComponents extends StatelessWidget {
                                   ),
                                   const SizedBox(height: 10),
                                   Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
                                     children: [
                                       Wrap(
                                         spacing: 6,
@@ -84,14 +86,23 @@ class FavListCardComponents extends StatelessWidget {
                                           );
                                         }).toList(),
                                       ),
-                                      IconButton(
-                                        icon: Icon(
-                                          Icons.favorite,
-                                          color: Colors.red.shade600,
+                                      Container(
+                                        width: 40,
+                                        height: 40,
+                                        decoration: BoxDecoration(
+                                          color: BrandColors.primary,
+                                          borderRadius:
+                                              BorderRadius.circular(8),
                                         ),
-                                        onPressed: () {
-                                          favProvider.removeFromFav(quote);
-                                        },
+                                        child: IconButton(
+                                          icon: Icon(
+                                            Icons.favorite,
+                                            color: Colors.red.shade600,
+                                          ),
+                                          onPressed: () {
+                                            favProvider.removeFromFav(quote);
+                                          },
+                                        ),
                                       ),
                                     ],
                                   ),
