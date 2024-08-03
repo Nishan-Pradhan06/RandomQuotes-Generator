@@ -5,7 +5,6 @@ import 'package:learngin/view/pages/favourites_page.dart';
 import 'package:provider/provider.dart';
 import '../../model/custom_app_bar.dart';
 import '../../providers/quotes_providers.dart';
-import '../components/actoin_buttons.dart';
 import '../components/appbar.dart';
 import '../components/quotes_card_components.dart';
 
@@ -14,7 +13,6 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print("build");
     return Scaffold(
       drawer: const CustomDrawerComponent(),
       appBar: CustomAppBar(

@@ -20,7 +20,7 @@ class SkelentonizerLoading extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+              padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 20),
               child: Container(
                 height: 20,
                 width: double.infinity,
@@ -28,7 +28,7 @@ class SkelentonizerLoading extends StatelessWidget {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(top: 20, right: 30, bottom: 5),
+              padding: const EdgeInsets.only(top: 20, right: 18, bottom: 5),
               child: Align(
                 alignment: Alignment.bottomRight,
                 child: Container(
@@ -40,37 +40,44 @@ class SkelentonizerLoading extends StatelessWidget {
             ),
             Align(
               alignment: Alignment.centerLeft,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Wrap(
-                    spacing: 1,
-                    children: List.generate(3, (index) {
-                      return Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 6.0),
-                        child: Chip(
-                          label: Container(
-                            height: 20,
-                            width: 50,
-                            color: Colors.deepPurple.shade300,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 10.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Wrap(
+                      spacing: 1,
+                      children: List.generate(3, (index) {
+                        return Padding(
+                          padding: const EdgeInsets.only(left: 18.0),
+                          child: Chip(
+                            label: Container(
+                              height: 20,
+                              width: 50,
+                              color: Colors.deepPurple.shade300,
+                            ),
+                            backgroundColor: Colors.transparent,
+                            materialTapTargetSize:
+                                MaterialTapTargetSize.shrinkWrap,
+                            padding: const EdgeInsets.symmetric(
+                                vertical: 1, horizontal: 6),
+                            labelPadding:
+                                const EdgeInsets.symmetric(horizontal: 1),
                           ),
-                          backgroundColor: Colors.transparent,
-                          materialTapTargetSize:
-                              MaterialTapTargetSize.shrinkWrap,
-                          padding: const EdgeInsets.symmetric(
-                              vertical: 1, horizontal: 6),
-                          labelPadding:
-                              const EdgeInsets.symmetric(horizontal: 1),
-                        ),
-                      );
-                    }).toList(),
-                  ),
-                  Container(
-                    height: 20,
-                    width: 50,
-                    color: Colors.deepPurple.shade300,
-                  ),
-                ],
+                        );
+                      }).toList(),
+                    ),
+                    Container(
+                      margin: const EdgeInsets.only(right: 12),
+                      width: 40,
+                      height: 40,
+                      decoration: BoxDecoration(
+                        color: Colors.deepPurple.shade300,
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ],
