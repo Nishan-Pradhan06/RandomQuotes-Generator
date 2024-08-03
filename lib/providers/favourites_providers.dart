@@ -3,6 +3,7 @@ import 'package:learngin/model/quotes_model.dart';
 
 class FavouritesProviders extends ChangeNotifier {
   bool isLoading = true;
+  bool isFav = false;
   String err = '';
   final List<QuotesModel> favourites = [];
   List<QuotesModel> get favQuotes => favourites;

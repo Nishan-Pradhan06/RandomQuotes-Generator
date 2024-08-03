@@ -15,11 +15,7 @@ class FavouritesListCard extends StatelessWidget {
       appBar: CustomAppBar(
         model: CustomAppBarModel(title: 'Favourites'),
       ),
-      body: ListView(
-        children: const [
-          FavListCardComponents(),
-        ],
-      ),
+      body: const FavListCardComponents(),
     );
   }
 }
