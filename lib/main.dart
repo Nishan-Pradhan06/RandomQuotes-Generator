@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:learngin/providers/favourites_providers.dart';
+import 'package:learngin/providers/internet_connectivity_providers.dart';
 import 'package:learngin/providers/privacy_policy.dart';
 import 'package:learngin/providers/quotes_providers.dart';
 import 'package:learngin/providers/rating_providers.dart';
@@ -28,6 +29,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => FavouritesProviders()),
         ChangeNotifierProvider(create: (_) => RatingProvider()),
         ChangeNotifierProvider(create: (_) => PrivacyPolicyProvider()),
+        ChangeNotifierProvider(create: (_) => ConnectivityProvider()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
