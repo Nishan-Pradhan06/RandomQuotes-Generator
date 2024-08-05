@@ -20,7 +20,8 @@ dependencies:
   rating_dialog: ^2.0.4
   url_launcher: ^6.3.0
   fluttertoast: ^8.2.5
-
+  shared_preferences: ^2.0.15
+  
 dev_dependencies:
   flutter_test:
     sdk: flutter
