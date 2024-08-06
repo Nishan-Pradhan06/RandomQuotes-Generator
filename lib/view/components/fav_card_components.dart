@@ -87,31 +87,37 @@ class _FavListCardComponentsState extends State<FavListCardComponents> {
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
                                     children: [
-                                      Wrap(
-                                        spacing: 6,
-                                        children: quote.tags.map((tag) {
-                                          return Chip(
-                                            label: Text(
-                                              tag,
-                                              style: const TextStyle(
-                                                fontSize: 12,
-                                                fontWeight: FontWeight.w500,
-                                                color: Colors.white,
-                                                overflow: TextOverflow.ellipsis,
+                                      Expanded(
+                                        child: Wrap(
+                                          spacing: 6,
+                                          runSpacing: 6,
+                                          children: quote.tags.map((tag) {
+                                            return Chip(
+                                              label: Text(
+                                                tag,
+                                                style: const TextStyle(
+                                                  fontSize: 12,
+                                                  fontWeight: FontWeight.w500,
+                                                  color: Colors.white,
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
+                                                ),
                                               ),
-                                            ),
-                                            backgroundColor:
-                                                BrandColors.primary,
-                                            materialTapTargetSize:
-                                                MaterialTapTargetSize
-                                                    .shrinkWrap,
-                                            padding: const EdgeInsets.symmetric(
-                                                vertical: 1, horizontal: 6),
-                                            labelPadding:
-                                                const EdgeInsets.symmetric(
-                                                    horizontal: 1),
-                                          );
-                                        }).toList(),
+                                              backgroundColor:
+                                                  BrandColors.primary,
+                                              materialTapTargetSize:
+                                                  MaterialTapTargetSize
+                                                      .shrinkWrap,
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                      vertical: 1,
+                                                      horizontal: 6),
+                                              labelPadding:
+                                                  const EdgeInsets.symmetric(
+                                                      horizontal: 1),
+                                            );
+                                          }).toList(),
+                                        ),
                                       ),
                                       Container(
                                         width: 40,
